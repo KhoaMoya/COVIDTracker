@@ -1,0 +1,8 @@
+API bản đồ: https://maps.vnpost.vn/apps/covid19/api/patientapi/list
+API tin tức: https://api.coronatracker.com/news/trending?limit=9&offset=0&countryCode=VN&country=Vietnam&language=en,vi
+API icon lá cờ: https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/vn.svg
+API top country: https://api.coronatracker.com/v3/stats/worldometer/topCountry?limit=15&sort=-confirmed
+API thông tin 1 country: https://api.coronatracker.com/v3/stats/worldometer/country?countryCode=VN
+API thống kê new case: https://api.coronatracker.com/v3/analytics/newcases/country?countryCode=VN&startDate=2020-03-09&endDate=2020-05-09
+API thống kê tổng quan: https://api.coronatracker.com/v3/analytics/trend/country?countryCode=VN&startDate=2020-04-25&endDate=2020-05-09
+Web chứa ảnh: https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public
