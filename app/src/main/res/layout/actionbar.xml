@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize">
+
+    <ImageView
+        android:id="@+id/img_menu"
+        android:layout_width="?actionBarSize"
+        android:layout_height="?actionBarSize"
+        android:background="?actionBarItemBackground"
+        android:padding="14dp"
+        android:src="@drawable/ic_menu"
+        android:tint="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Việt Nam"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/colorYellow"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_search"
+        android:layout_width="?actionBarSize"
+        android:layout_height="?actionBarSize"
+        android:background="?actionBarItemBackground"
+        android:padding="15dp"
+        android:src="@drawable/ic_search"
+        android:tint="@color/colorWhite"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/img_refresh"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_refresh"
+        android:layout_width="?actionBarSize"
+        android:layout_height="?actionBarSize"
+        android:background="?actionBarItemBackground"
+        android:padding="14dp"
+        android:src="@drawable/ic_refresh"
+        android:tint="@color/colorWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
