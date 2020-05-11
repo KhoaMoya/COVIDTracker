@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient_primary"
@@ -10,34 +9,35 @@
 
     <include
         android:id="@+id/action_bar"
-        layout="@layout/actionbar"/>
+        layout="@layout/actionbar" />
 
     <TextView
         android:id="@+id/txt_statistic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:visibility="gone"
         android:text="Thống kê tổng quan"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="@color/colorWhite"
-        app:layout_constraintTop_toBottomOf="@id/action_bar"/>
+        app:layout_constraintTop_toBottomOf="@id/action_bar" />
 
     <LinearLayout
         android:id="@+id/panel_statistic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="20dp"
+        android:orientation="horizontal"
         android:paddingHorizontal="16dp"
         app:layout_constraintTop_toBottomOf="@id/txt_statistic">
 
-<!--        Nhiễm bệnh-->
+        <!--        Nhiễm bệnh-->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:layout_weight="1"
             android:background="@drawable/background_selectable_black12_conner8"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <TextView
@@ -45,38 +45,37 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="20dp"
-                android:textStyle="bold"
+                android:text="0"
                 android:textColor="@color/colorYellow"
-                android:textSize="26sp"
-                android:text="288"/>
+                android:textSize="26sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite75"
-                android:text="Nhiễm bệnh"/>
+                android:text="Nhiễm bệnh"
+                android:textColor="@color/colorWhite75" />
 
             <TextView
                 android:id="@+id/txt_new_confirmed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/background_yellow_corner4"
                 android:gravity="center"
+                android:text="+0"
                 android:textColor="@color/colorWhite"
-                android:background="@drawable/background_yellow_corner8"
-                android:textSize="20sp"
-                android:text="+ 0"/>
+                android:textSize="18sp" />
 
         </LinearLayout>
 
-<!--        Khỏi bệnh-->
+        <!--        Khỏi bệnh-->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:layout_marginHorizontal="16dp"
+            android:layout_weight="1"
             android:background="@drawable/background_selectable_black12_conner8"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <TextView
@@ -84,37 +83,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="20dp"
-                android:textStyle="bold"
+                android:text="0"
                 android:textColor="@color/colorGreen"
-                android:textSize="26sp"
-                android:text="288"/>
+                android:textSize="26sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite75"
-                android:text="Khỏi bệnh"/>
+                android:text="Khỏi bệnh"
+                android:textColor="@color/colorWhite75" />
 
             <TextView
                 android:id="@+id/txt_new_recovered"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/background_green_corner4"
                 android:gravity="center"
+                android:text="+0"
                 android:textColor="@color/colorWhite"
-                android:background="@drawable/background_green_corner8"
-                android:textSize="20sp"
-                android:text="+ 0"/>
+                android:textSize="18sp" />
 
         </LinearLayout>
 
-<!--        Tử vong-->
+        <!--        Tử vong-->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:layout_weight="1"
             android:background="@drawable/background_selectable_black12_conner8"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <TextView
@@ -122,10 +120,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="20dp"
-                android:textStyle="bold"
+                android:text="0"
                 android:textColor="@color/colorRed"
-                android:textSize="26sp"
-                android:text="288"/>
+                android:textSize="26sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -138,95 +135,128 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@drawable/background_red_corner4"
                 android:gravity="center"
+                android:text="+0"
                 android:textColor="@color/colorWhite"
-                android:background="@drawable/background_red_corner8"
-                android:textSize="20sp"
-                android:text="+ 0"/>
+                android:textSize="18sp" />
 
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txt_lastupdate"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/panel_lastupdate"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cập nhật lúc: "
-        android:layout_margin="16dp"
-        android:textSize="12sp"
-        android:textColor="@color/colorWhite75"
-        app:layout_constraintTop_toBottomOf="@id/panel_statistic"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/panel_statistic">
+
+        <TextView
+            android:id="@+id/txt_lastupdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cập nhật lúc: "
+            android:textColor="@color/colorWhite75"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/txt_source"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nguồn: "
+            android:textAlignment="viewEnd"
+            android:textColor="@color/colorWhite75"
+            android:textSize="12sp" />
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/txt_source"
-        android:layout_width="wrap_content"
+        android:id="@+id/txt_list_province"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nguồn: "
-        android:layout_margin="16dp"
-        android:textSize="12sp"
+        android:layout_marginHorizontal="16dp"
+        android:gravity="center"
+        android:text="Danh sách tỉnh thành bị ảnh hưởng"
         android:textColor="@color/colorWhite75"
-        app:layout_constraintTop_toBottomOf="@id/panel_statistic"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/panel_lastupdate" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8dp"
+        android:layout_height="0dp"
         android:layout_margin="10dp"
         android:background="@drawable/background_selectable_black12_conner8"
-        app:layout_constraintTop_toBottomOf="@id/txt_lastupdate">
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/txt_list_province"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="6dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="6dp"
             android:orientation="horizontal">
-            
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="2"
                 android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="center"
                 android:text="Tỉnh, thành phố"
-                android:textSize="12sp"
-                android:gravity="center"
-                android:textColor="@color/colorWhite75"/>
+                android:textColor="@color/colorWhite75"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite75" />
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="Số ca nhiễm"
-                android:textSize="12sp"
-                android:gravity="center"
-                android:textColor="@color/colorWhite75"/>
+                android:textColor="@color/colorWhite75"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite75" />
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="Khỏi bệnh"
-                android:textSize="12sp"
-                android:gravity="center"
-                android:textColor="@color/colorWhite75"/>
+                android:textColor="@color/colorWhite75"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite75" />
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Tử vong"
-                android:textSize="12sp"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/colorWhite75"/>
-            
+                android:text="Tử vong"
+                android:textColor="@color/colorWhite75"
+                android:textSize="12sp" />
+
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/lv_city"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_province"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/item_city"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_province" />
 
     </LinearLayout>
 

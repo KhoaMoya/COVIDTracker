@@ -1,6 +1,8 @@
 package com.khoa.covidtracker.model;
 
+import java.util.List;
+
 public class NewsContainer {
     public int total;
-    public News[] news;
+    public List<News> items;
 }
