@@ -1,7 +1,6 @@
 package com.khoa.covidtracker.home.view;
 
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +13,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.khoa.covidtracker.databinding.FragmentHomeBinding;
 import com.khoa.covidtracker.home.viewmodel.HomeViewModel;
 import com.khoa.covidtracker.main.view.MyFragment;
-import com.khoa.covidtracker.model.Country;
-import com.khoa.covidtracker.model.Province;
-import com.khoa.covidtracker.repository.network.ApiServiceFactory;
+import com.khoa.covidtracker.model.Tracker;
+import com.khoa.covidtracker.model.TrackerWrapper;
 import com.khoa.covidtracker.utils.TimeUtils;
 
 import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableSingleObserver;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
 
 public class HomeFragment extends MyFragment {
 
@@ -60,95 +52,55 @@ public class HomeFragment extends MyFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupBinding();
-        loadData();
     }
 
-    private void setupBinding() {
-        mBinding.rcvProvince.setAdapter(mViewModel.provinceAdapter);
+    @Override
+    public void setupBinding() {
+        mBinding.rcvProvince.setAdapter(mViewModel.mProvinceAdapter);
         mBinding.actionBar.imgRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadData();
+                refreshData();
             }
         });
 
-        mViewModel.provinceList.observe(getViewLifecycleOwner(), new Observer<List<Province>>() {
+        getTrackerWrapper().observe(getViewLifecycleOwner(), new Observer<TrackerWrapper>() {
             @Override
-            public void onChanged(List<Province> provinces) {
-                mViewModel.provinceAdapter.setProvinceList(provinces);
-                mBinding.txtListProvince.setText(Html.fromHtml("Danh sách  <font color=\"yellow\">"
-                        + provinces.size() + "</font> tỉnh thành bị ảnh hưởng", Html.FROM_HTML_MODE_LEGACY));
+            public void onChanged(TrackerWrapper trackerWrapper) {
+                onFinishLoading();
+                showCountryStatistic(trackerWrapper);
             }
         });
     }
 
-    private void loadData() {
+    private void showProvinceList(TrackerWrapper trackerWrapper) {
+        mBinding.txtListProvince.setText("Danh sách " + (trackerWrapper.data.VN.size()-2) + " tỉnh thành bị ảnh hưởng");
+        mViewModel.mProvinceAdapter.setTrackerList(trackerWrapper.data.VN.subList(0, trackerWrapper.data.VN.size() - 2));
+    }
+
+    private void showCountryStatistic(TrackerWrapper trackerWrapper) {
+        if(!trackerWrapper.success) return;
+        List<Tracker> vnTrackerList = trackerWrapper.data.VN;
+        if (vnTrackerList.isEmpty()) return;
+
+        showCountryInfo(vnTrackerList.get(vnTrackerList.size() - 1));
+        showProvinceList(trackerWrapper);
+    }
+
+    private void showCountryInfo(Tracker tracker) {
+        mBinding.txtAmountConfirmed.setText(tracker.confirmed + "");
+        mBinding.txtAmountRecovered.setText(tracker.recovered + "");
+        mBinding.txtAmountDeath.setText(tracker.deaths + "");
+        mBinding.txtNewConfirmed.setText("+" + tracker.increaseConfirmed);
+        mBinding.txtNewDeath.setText("+" + tracker.increaseRecovered);
+        mBinding.txtLastupdate.setText("Cập nhật lúc: " + TimeUtils.convertTimestamp(tracker.lastUpdate));
+        mBinding.txtSource.setText("Nguồn: Bộ Y tế");
+    }
+
+    @Override
+    public void refreshData() {
         onStartLoading();
-        // tải thống kê tổng quan
-        addDisposble(createStatisticDisposable());
-
-        // tải thống kê theo tỉnh
-        addDisposble(createProvinceDisposable());
-    }
-
-    private void showCountryInfo(Country country) {
-        mBinding.txtAmountConfirmed.setText(country.totalConfirmed + "");
-        mBinding.txtAmountRecovered.setText(country.totalRecovered + "");
-        mBinding.txtAmountDeath.setText(country.totalDeaths + "");
-        mBinding.txtNewConfirmed.setText("+" + country.dailyConfirmed);
-        mBinding.txtNewDeath.setText("+" + country.dailyDeaths + "");
-        mBinding.txtLastupdate.setText(TimeUtils.convertDate(country.lastUpdated));
-        mBinding.txtSource.setText("Nguồn: coronatracker.com");
-    }
-
-    private Disposable createStatisticDisposable() {
-        return ApiServiceFactory.getTrackerApiService()
-                .getCountryInfo("VN")
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(new DisposableSingleObserver<List<Country>>() {
-                    @Override
-                    protected void onStart() {
-                        super.onStart();
-                        onFinishLoading();
-                    }
-
-                    @Override
-                    public void onSuccess(List<Country> countries) {
-                        if (countries.size() > 0) showCountryInfo(countries.get(0));
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        showToast(e.getMessage());
-                    }
-                });
-    }
-
-    private Disposable createProvinceDisposable() {
-        return ApiServiceFactory.getProvincesApiService()
-                .getProvinces()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(new DisposableSingleObserver<ResponseBody>() {
-                    @Override
-                    protected void onStart() {
-                        super.onStart();
-                        onFinishLoading();
-                    }
-
-                    @Override
-                    public void onSuccess(ResponseBody responseBody) {
-                        mViewModel.handleResponBodyProvince(responseBody);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        showToast(e.getMessage());
-                    }
-                });
+        getMainActivity().loadDataFromBoYTe();
     }
 
     @Override

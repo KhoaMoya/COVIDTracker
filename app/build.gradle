@@ -62,5 +62,13 @@ dependencies {
 
     implementation group: 'commons-lang', name: 'commons-lang', version: '2.6'
     implementation group: 'org.json', name: 'json', version: '20180813'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+
+    //noinspection GradleDynamicVersion
+    implementation 'com.google.maps.android:android-maps-utils:0.4+'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 }

@@ -2,6 +2,7 @@ package com.khoa.covidtracker.main.view;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,8 +17,14 @@ import com.khoa.covidtracker.databinding.ActivityMainBinding;
 import com.khoa.covidtracker.home.view.HomeFragment;
 import com.khoa.covidtracker.main.viewmodel.MainViewModel;
 import com.khoa.covidtracker.map.view.MapFragment;
+import com.khoa.covidtracker.model.TrackerWrapper;
 import com.khoa.covidtracker.news.view.NewsFragment;
+import com.khoa.covidtracker.repository.network.ApiServiceFactory;
 import com.khoa.covidtracker.world.view.WorldFragment;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -37,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         setupBinding();
         showFragment();
+        loadDataFromBoYTe();
     }
 
     private void showFragment() {
@@ -140,6 +148,25 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
         if (newFragment != null) switchFrament(newTag, newFragment);
         return true;
+    }
+
+    public void loadDataFromBoYTe() {
+        mViewModel.disposable.add(ApiServiceFactory
+                .getBoYTeApiService()
+                .getData().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<TrackerWrapper>() {
+                    @Override
+                    public void onSuccess(TrackerWrapper tw) {
+                        mViewModel.trackerWrapper.postValue(tw);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }));
     }
 
     @Override
