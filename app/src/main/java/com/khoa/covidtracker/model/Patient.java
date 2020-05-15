@@ -35,7 +35,7 @@ public class Patient  implements ClusterItem {
     public String toDescription(){
         return "Địa chỉ: " + address
                 + "\nNhóm: " + patientGroup
-                + "\nThời gian: " + TimeUtils.convertDate(verifyDate)
+                + "\nThời gian: " + TimeUtils.convertISOTime(verifyDate)
                 + "\nGhi chú: " + note;
 
     }

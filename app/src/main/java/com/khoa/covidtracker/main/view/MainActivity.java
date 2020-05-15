@@ -153,7 +153,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void loadDataFromBoYTe() {
         mViewModel.disposable.add(ApiServiceFactory
                 .getBoYTeApiService()
-                .getData().subscribeOn(Schedulers.io())
+                .getData()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<TrackerWrapper>() {
                     @Override
@@ -171,7 +172,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        WorldFragment worldFragment = (WorldFragment) getSupportFragmentManager().findFragmentByTag(WorldFragment.TAG);
+        HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag(HomeFragment.TAG);
+        if (worldFragment != null && worldFragment.isVisible()) {
+            if (worldFragment.isSearching()) {
+                worldFragment.hideSearchBar();
+            } else {
+                if (homeFragment != null && !homeFragment.isVisible()) {
+                    mBinding.btmNav.setSelectedItemId(R.id.menu_home);
+                } else {
+                    super.onBackPressed();
+                }
+            }
+        } else if (homeFragment != null && !homeFragment.isVisible()) {
+            mBinding.btmNav.setSelectedItemId(R.id.menu_home);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
